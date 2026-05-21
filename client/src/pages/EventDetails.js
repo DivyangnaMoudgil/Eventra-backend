@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../config/api";
 import { useAuth } from "../context/AuthContext";
 import ReviewList from "../components/ReviewList";
 import ReviewForm from "../components/ReviewForm";
@@ -37,7 +37,7 @@ function EventDetails() {
   const img3 = useMemo(() => EVENT_BANNERS[(id?.charCodeAt(0) + 2) % EVENT_BANNERS.length], [id]);
 
   useEffect(() => {
-    axios.get(`/api/events/${id}`)
+    axios.get(`/events/${id}`)
       .then(res => {
         setEvent(res.data);
         setLoading(false);
@@ -63,7 +63,7 @@ function EventDetails() {
     try {
       // Create booking
       const res = await axios.post(
-        `/api/bookings/${id}`,
+        `/bookings/${id}`,
         { ticketType, quantity },
         { headers: { Authorization: `Bearer ${auth.token}` } }
       );
@@ -72,7 +72,7 @@ function EventDetails() {
       setBooking(newBooking);
 
       // Create payment link
-      const payRes = await fetch(`/api/payment/${newBooking._id}`, {
+      const payRes = await fetch(`/payment/${newBooking._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

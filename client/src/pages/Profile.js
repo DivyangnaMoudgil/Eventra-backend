@@ -1,6 +1,6 @@
 // src/pages/Profile.js
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../config/api";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./../style.css";
@@ -24,7 +24,7 @@ function Profile() {
   useEffect(() => {
     if (auth.user?.role === "user") {
       axios
-        .get("/api/bookings/my", {
+        .get("/bookings/my", {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
         .then((res) => {
@@ -34,7 +34,7 @@ function Profile() {
         .catch(() => setLoading(false));
 
       axios
-        .get("/api/goodies/my", {
+        .get("/goodies/my", {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
         .then((res) => setGoodiesOrders(res.data))
@@ -46,7 +46,7 @@ function Profile() {
   useEffect(() => {
     if (auth.user?.role === "organizer") {
       axios
-        .get("/api/events", {
+        .get("/events", {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
         .then(async (res) => {
@@ -58,7 +58,7 @@ function Profile() {
           let revenue = 0;
 
           for (const event of mine) {
-            const res2 = await axios.get(`/api/bookings/event/${event._id}`, {
+            const res2 = await axios.get(`/bookings/event/${event._id}`, {
               headers: { Authorization: `Bearer ${auth.token}` },
             });
             totalAttendees += res2.data.length;
@@ -74,7 +74,7 @@ function Profile() {
 
   const fetchAttendees = async (eventId) => {
     try {
-      const res = await axios.get(`/api/bookings/event/${eventId}`, {
+      const res = await axios.get(`/bookings/event/${eventId}`, {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
       setAttendees((prev) => ({ ...prev, [eventId]: res.data }));

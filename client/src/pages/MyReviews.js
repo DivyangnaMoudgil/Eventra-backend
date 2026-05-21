@@ -1,7 +1,7 @@
 // client/src/pages/MyReviews.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import API from "../config/api";
 import { useAuth } from '../context/AuthContext';
 import StarRating from '../components/StarRating';
 import '../style.css';
@@ -25,7 +25,7 @@ function MyReviews() {
   const fetchMyReviews = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/reviews/user/my-reviews', {
+      const response = await axios.get('/reviews/user/my-reviews', {
         params: { page: currentPage, limit: 10 },
         headers: { Authorization: `Bearer ${auth.token}` }
       });
@@ -45,7 +45,7 @@ function MyReviews() {
     }
     
     try {
-      await axios.delete(`/api/reviews/${reviewId}`, {
+      await axios.delete(`/reviews/${reviewId}`, {
         headers: { Authorization: `Bearer ${auth.token}` }
       });
       

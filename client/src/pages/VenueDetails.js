@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../config/api";
 import { useAuth } from "../context/AuthContext";
 import ReviewList from "../components/ReviewList";
 import ReviewForm from "../components/ReviewForm";
@@ -117,7 +117,7 @@ function VenueDetails() {
     const fetchVenue = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`/api/venues/${id}`);
+        const response = await axios.get(`/venues/${id}`);
         setVenue(response.data);
       } catch (error) {
         console.error('Error fetching venue:', error);

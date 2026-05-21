@@ -34,7 +34,7 @@ export default function OrderConfirmation() {
         if (reference_id) params.append('order_id', reference_id);
 
         // backend endpoint expects query params and will return the updated booking
-        const res = await fetch(`/api/payment/update?${params.toString()}`);
+        const res = await fetch(`/payment/update?${params.toString()}`);
         const data = await res.json();
         if (!res.ok) {
           console.error('Payment update failed', data);

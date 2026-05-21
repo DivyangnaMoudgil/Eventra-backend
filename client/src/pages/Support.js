@@ -1,6 +1,6 @@
 // client/src/pages/Support.js
 import React, { useState } from "react";
-import axios from "axios";
+import API from "../config/api";
 import "./../style.css";
 
 function Support() {
@@ -26,7 +26,7 @@ function Support() {
 
     try {
       // Send data to backend
-      await axios.post("/api/support", formData);
+      await axios.post("/support", formData);
 
       // Show success message
       setIsSent(true);

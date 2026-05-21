@@ -1,7 +1,7 @@
 // src/pages/Explore.js
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import API from "../config/api";
 import ExploreMapView from "../components/ExploreMapView";
 import "../style.css";
 function Explore() {
@@ -60,7 +60,7 @@ function Explore() {
   // Fetch events from backend
   useEffect(() => {
     axios
-      .get("/api/events")
+      .get("/events")
       .then((res) => {
         setDbEvents(res.data);
         setLoading(false);

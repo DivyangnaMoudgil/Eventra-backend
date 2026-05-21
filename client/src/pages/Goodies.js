@@ -122,7 +122,7 @@ function Goodies() {
     try {
       await loadRazorpay();
 
-      const res = await fetch("/api/goodies/checkout", {
+      const res = await fetch("/goodies/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

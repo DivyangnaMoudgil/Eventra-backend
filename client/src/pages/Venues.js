@@ -1,7 +1,7 @@
 // client/src/pages/Venues.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../config/api";
 import { useAuth } from "../context/AuthContext";
 import "../style.css";
 
@@ -29,7 +29,7 @@ function Venues() {
 
   const fetchVenues = async () => {
     try {
-      const response = await axios.get("/api/venues");
+      const response = await axios.get("/venues");
       setVenues(response.data);
       setLoading(false);
     } catch (error) {
